@@ -1,0 +1,39 @@
+{
+	"name": "plugdata-demos",
+	"version": "0.2.0",
+	"description": "Demos for all projects in Plugdata.io",
+	"main": "index.js",
+	"scripts": {
+		"start": "npx plug-start",
+		"test": "npx tsc --incremental true && npx plug-test test dist/test | npx pino-pretty -t -i pid,hostname,name",
+		"test:info": "npx tsc --incremental true && npx plug-test info dist/test",
+		"test:dev": "npx tsc-watch --noClear --onSuccess \"npm run test:clean\"",
+		"test:clean": "npx plug-test test dist/test | npx pino-pretty -t -i pid,hostname,name",
+		"dev": "npx tsc-watch --noClear --onSuccess \"npm run start:dev\"",
+		"start:dev": "npm run start | npx pino-pretty -t -i pid,hostname,name"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/plugdata/plugdata-demos.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/plugdata/plugdata-demos/issues"
+	},
+	"homepage": "https://github.com/plugdata/plugdata-demos#readme",
+	"dependencies": {
+		"@plugdata/core": "0.2.0",
+		"@plugdata/data": "0.2.0",
+		"@plugdata/web": "0.2.0"
+	},
+	"devDependencies": {
+		"@types/mongodb": "^3.1.31",
+		"@types/node": "^12.6.8",
+		"@types/pino": "^5.8.8",
+		"pino-pretty": "^3.2.0",
+		"tsc-watch": "^2.2.1",
+		"typescript": "^3.5.3"
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"log": {
+		"level": "debug"
+	},
+	"web": {
+		"port": 3000
+	},
+	"custom": {
+		"exampleCustomProp": "This comes from configuration.json",
+		"exampleWithEnv": "$[NODE_ENV]",
+		"exampleImport": "@[import:example-import.json]"
+	}
+}

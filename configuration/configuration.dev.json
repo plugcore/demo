@@ -1,0 +1,6 @@
+{
+	"data": {
+		"url": "mongodb://[USER]:[PASSWORD]@[HOST]:27017/[LOGIN_DATABASE]",
+		"databaseName": "[STORE_DATABASE]"
+	}
+}
