@@ -25,6 +25,7 @@ export class VehicleService implements IDiOnInit {
 		private objectValidatorFactory: ObjectValidatorFactory,
 		private eventDispatcher: EventDispatcher
 	) {
+		console.log(JSON.stringify(config));
 		// Example of object validation compilation
 		// We can compile it from any object or json 
 		// that is a valid json schema: https://json-schema.org/

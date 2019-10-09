@@ -1,5 +1,5 @@
 import { Vehicle, INewVehicle, IUpdateVehicle } from "./vehicle.model";
-import { IsNumber, IsString, RequiredProperty } from "@plugdata/core";
+import { IsNumber, IsString, RequiredProperty, ObjectValidatorUtils, Container, IsArray } from "@plugdata/core";
 
 // In this file we are going to define all the models that the vehicle
 // api is going to use. We can have
@@ -47,3 +47,104 @@ export class VehicleId {
 	@RequiredProperty()
 	public id: number;
 }
+
+
+////////////////
+
+
+/* reservation
+reservation-log
+plugcore-log
+plugcore-user
+plugcore-rol
+plugcore-api-token
+plugcore-api-log
+holidayhotels-hotelroom
+myrentacar-car
+worldairlines-fight
+besttours-tour */
+
+class Reservartion {
+	
+
+}
+
+class ReservartionLog {
+
+}
+
+class PlugCoreLog {
+
+}
+
+class PlugCoreUser {
+
+}
+
+class PlugCoreRol {
+
+}
+class PlugCoreApiToken {
+
+}
+class PlugCoreApiLog {
+
+}
+
+class HorelRoom {
+
+}
+
+class Car {
+
+}
+
+class Flight {
+
+}
+
+class TourPrices {
+	@IsString()
+	@RequiredProperty()
+	price: number;
+
+	@IsNumber()
+	@RequiredProperty()
+	currency: string;
+}
+
+
+class Tour {
+	
+	@IsString()
+	@RequiredProperty()
+	id: string;
+
+	@IsString()
+	@RequiredProperty()
+	name: string;
+	
+	@IsString()
+	@RequiredProperty()
+	description: string;
+	
+	@IsString()
+	@RequiredProperty()
+	longDescription: string;
+
+	@IsString()
+	@RequiredProperty()
+	imageUrl: string;
+
+	@IsArray({
+		contains: ObjectValidatorUtils.generateJsonSchema(TourPrices),
+		minItems: 1,
+		uniqueItems: true
+	})
+	@RequiredProperty()
+	prices: TourPrices[]
+
+}
+
+
+console.log(JSON.stringify(ObjectValidatorUtils.generateJsonSchema(Tour)));

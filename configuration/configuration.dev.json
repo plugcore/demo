@@ -1,6 +1,6 @@
 {
 	"data": {
-		"url": "mongodb://[USER]:[PASSWORD]@[HOST]:27017/[LOGIN_DATABASE]",
-		"databaseName": "[STORE_DATABASE]"
+		"url": "mongodb://plugweb:7PuSmMiR42F78j63@213.32.21.245:27017/plugweb",
+		"databaseName": "plugweb"
 	}
 }
