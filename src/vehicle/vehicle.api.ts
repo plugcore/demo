@@ -65,7 +65,7 @@ myrentacar-car
 worldairlines-fight
 besttours-tour */
 
-class PriceInCurrencies {
+export class PriceInCurrencies {
 	@IsString()
 	@RequiredProperty()
 	price: number;
@@ -75,7 +75,7 @@ class PriceInCurrencies {
 	currency: string;
 }
 
-class LabelTranslation {
+export class LabelTranslation {
 	@IsString()
 	@RequiredProperty()
 	language: string;
@@ -84,7 +84,7 @@ class LabelTranslation {
 	value: string;
 }
 
-class PlugCoreLog {
+export class PlugCoreLog {
 	@IsString()
 	@RequiredProperty()
 	id: string;
@@ -111,7 +111,7 @@ class PlugCoreLog {
 	msg: string;
 }
 
-class PlugCoreUser {
+export class PlugCoreUser {
 
 	@IsString()
 	@RequiredProperty()
@@ -135,7 +135,7 @@ class PlugCoreUser {
 	lastLogin: number;
 
 	@IsArray({
-		contains: {
+		items: {
 			title: 'availablePaths',
 			type: 'array',
 			items: {
@@ -150,7 +150,7 @@ class PlugCoreUser {
 
 }
 
-class PlugCoreRol {
+export class PlugCoreRol {
 
 	@IsString()
 	@RequiredProperty()
@@ -161,7 +161,7 @@ class PlugCoreRol {
 	name: string;
 
 	@IsArray({
-		contains: ObjectValidatorUtils.generateJsonSchema(LabelTranslation),
+		items: ObjectValidatorUtils.generateJsonSchema(LabelTranslation),
 		minItems: 1,
 		uniqueItems: true
 	})
@@ -169,7 +169,7 @@ class PlugCoreRol {
 	translatedLabel: LabelTranslation[];
 
 	@IsArray({
-		contains: {
+		items: {
 			title: 'availablePaths',
 			type: 'array',
 			items: {
@@ -186,14 +186,14 @@ class PlugCoreRol {
 
 
 }
-class PlugCoreApiToken {
+export class PlugCoreApiToken {
 
 	@IsString()
 	@RequiredProperty()
 	token: string;
 
 	@IsArray({
-		contains: {
+		items: {
 			title: 'availablePaths',
 			type: 'array',
 			items: {
@@ -218,7 +218,7 @@ class PlugCoreApiToken {
 
 }
 
-class PlugCoreApiLog {
+export class PlugCoreApiLog {
 
 	@IsString()
 	@RequiredProperty()
@@ -246,7 +246,7 @@ class PlugCoreApiLog {
 
 }
 
-class HorelRoom {
+export class HotelRoom {
 
 	@IsString()
 	@RequiredProperty()
@@ -269,7 +269,7 @@ class HorelRoom {
 	checkOutDate: number;
 
 	@IsArray({
-		contains: ObjectValidatorUtils.generateJsonSchema(PriceInCurrencies),
+		items: ObjectValidatorUtils.generateJsonSchema(PriceInCurrencies),
 		minItems: 1,
 		uniqueItems: true
 	})
@@ -278,7 +278,7 @@ class HorelRoom {
 
 }
 
-class Car {
+export class Car {
 
 	@IsString()
 	@RequiredProperty()
@@ -294,7 +294,7 @@ class Car {
 
 	
 	@IsArray({
-		contains: ObjectValidatorUtils.generateJsonSchema(PriceInCurrencies),
+		items: ObjectValidatorUtils.generateJsonSchema(PriceInCurrencies),
 		minItems: 1,
 		uniqueItems: true
 	})
@@ -311,7 +311,7 @@ class Car {
 
 }
 
-class Flight {
+export class Flight {
 
 	@IsString()
 	@RequiredProperty()
@@ -329,7 +329,7 @@ class Flight {
 	@RequiredProperty()
 	arrivalDate: number;
 	@IsArray({
-		contains: ObjectValidatorUtils.generateJsonSchema(PriceInCurrencies),
+		items: ObjectValidatorUtils.generateJsonSchema(PriceInCurrencies),
 		minItems: 1,
 		uniqueItems: true
 	})
@@ -337,9 +337,31 @@ class Flight {
 	price: PriceInCurrencies[]
 }
 
+export class FindFutureToursInCityUrlParameters {
+	
+	@IsString()
+	@RequiredProperty()
+	cityId: string;
+
+}
 
 
-class Tour {
+export class FindRelatedProductsUrlParameters {
+	
+	@IsString()
+	@RequiredProperty()
+	tourId: string;
+
+}
+export class FindUserReservationsUrlParameters {
+	
+	@IsString()
+	@RequiredProperty()
+	userId: string;
+
+}
+
+export class Tour {
 	
 	@IsString()
 	@RequiredProperty()
@@ -362,7 +384,7 @@ class Tour {
 	imageUrl: string;
 
 	@IsArray({
-		contains: ObjectValidatorUtils.generateJsonSchema(PriceInCurrencies),
+		items: ObjectValidatorUtils.generateJsonSchema(PriceInCurrencies),
 		minItems: 1,
 		uniqueItems: true
 	})
@@ -371,14 +393,50 @@ class Tour {
 
 }
 
-class ReservartionFlights {
+export class ReservationFlights {
 	@IsObject(Flight)
 	departingFlight: Flight;
 	@IsObject(Flight)
 	returningFlight: Flight
 }
 
-class Reservartion {
+export class ReservationFlightsReferences {
+	
+	@IsString()
+	@RequiredProperty()
+	departingFlight: string;
+	
+	@IsString()
+	@RequiredProperty()
+	returningFlight: string;
+
+}
+
+export class ReservationReferences {
+
+	@IsString()
+	@RequiredProperty()
+	userId: string;
+
+	@IsString()
+	@RequiredProperty()
+	tourId: string;
+
+	@IsString()
+	@RequiredProperty()
+	hotelRoomId: string;
+
+	@IsObject(ReservationFlightsReferences)
+	@RequiredProperty()
+	flights: ReservationFlightsReferences;
+
+	@IsString()
+	@RequiredProperty()
+	vehicleId?: Vehicle
+
+}
+
+export class Reservation {
 	
 	@IsString()
 	@RequiredProperty()
@@ -388,20 +446,20 @@ class Reservartion {
 	@RequiredProperty()
 	userId: string;
 
-	@IsObject(HorelRoom)
+	@IsObject(HotelRoom)
 	@RequiredProperty()
-	hotel: HorelRoom;
+	hotel: HotelRoom;
 
-	@IsObject(ReservartionFlights)
+	@IsObject(ReservationFlights)
 	@RequiredProperty()
-	flights: ReservartionFlights;
+	flights: ReservationFlights;
 
 	@IsObject(Vehicle)
 	vehicle?: Vehicle
 
 }
 
-class ReservartionLog {
+export class ReservationLog {
 
 	@IsString()
 	@RequiredProperty()
@@ -425,4 +483,41 @@ class ReservartionLog {
 
 }
 
-console.log(JSON.stringify(ObjectValidatorUtils.generateJsonSchema(ReservartionLog)));
+export class TourRelatedProducts {
+	
+	
+	@IsArray({
+		items: ObjectValidatorUtils.generateJsonSchema(Flight),
+		minItems: 1,
+		uniqueItems: true
+	})
+	@RequiredProperty()
+	departingFlights: Flight;
+
+	@IsArray({
+		items: ObjectValidatorUtils.generateJsonSchema(Flight),
+		minItems: 1,
+		uniqueItems: true
+	})
+	@RequiredProperty()
+	returningFlights: Flight
+
+	@IsArray({
+		items: ObjectValidatorUtils.generateJsonSchema(VehicleModel),
+		minItems: 1,
+		uniqueItems: true
+	})
+	@RequiredProperty()
+	vehicles: VehicleModel
+
+	@IsArray({
+		items: ObjectValidatorUtils.generateJsonSchema(HotelRoom),
+		minItems: 1,
+		uniqueItems: true
+	})
+	@RequiredProperty()
+	hotelRooms: HotelRoom;
+}
+/* 
+console.log(JSON.stringify(ObjectValidatorUtils.generateJsonSchema(Reservation)));
+ */
