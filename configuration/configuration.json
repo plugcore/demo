@@ -7,12 +7,20 @@
 		"oas": {
 			"tags": [
 				{
-					"name": "tours",
-					"description": "Tour consultation methods"
+					"name": "best-tours",
+					"description": "Integration with Best tours for tours information"
 				},
 				{
-					"name": "reservations",
-					"description": "User reservations"
+					"name": "holiday-hotels",
+					"description": "Integration wtih Holiday Hotels for hotel rooms bookings"
+				},
+				{
+					"name": "my-rentacar",
+					"description": "Integration with My Rentacar for car renting"
+				},
+				{
+					"name": "world-airlines",
+					"description": "Integration with World Airlines for flights booking"
 				}
 			]
 		}

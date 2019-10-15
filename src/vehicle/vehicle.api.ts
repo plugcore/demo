@@ -1,6 +1,7 @@
 import { Vehicle, INewVehicle, IUpdateVehicle } from "./vehicle.model";
-import { IsNumber, IsString, RequiredProperty, ObjectValidatorUtils, Container, IsArray, IsBoolean, IsObject } from "@plugdata/core";
+import { IsNumber, IsString, RequiredProperty, ObjectValidatorUtils, Container, IsArray, IsBoolean, IsObject, IConfiguration } from "@plugdata/core";
 import { isNumber, isBoolean, isObject } from "util";
+import { IWebConfiguration } from "@plugdata/web";
 
 // In this file we are going to define all the models that the vehicle
 // api is going to use. We can have
@@ -120,12 +121,12 @@ export class PlugCoreUser {
 	@IsString()
 	@RequiredProperty()
 	name: string;
-	
+
 	@IsString()
 	@RequiredProperty()
 	passwordHash: string;
 
-	
+
 	@IsString()
 	@RequiredProperty()
 	email: string;
@@ -292,7 +293,7 @@ export class Car {
 	@RequiredProperty()
 	model: string;
 
-	
+
 	@IsArray({
 		items: ObjectValidatorUtils.generateJsonSchema(PriceInCurrencies),
 		minItems: 1,
@@ -338,7 +339,7 @@ export class Flight {
 }
 
 export class FindFutureToursInCityUrlParameters {
-	
+
 	@IsString()
 	@RequiredProperty()
 	cityId: string;
@@ -347,14 +348,14 @@ export class FindFutureToursInCityUrlParameters {
 
 
 export class FindRelatedProductsUrlParameters {
-	
+
 	@IsString()
 	@RequiredProperty()
 	tourId: string;
 
 }
 export class FindUserReservationsUrlParameters {
-	
+
 	@IsString()
 	@RequiredProperty()
 	userId: string;
@@ -362,7 +363,7 @@ export class FindUserReservationsUrlParameters {
 }
 
 export class Tour {
-	
+
 	@IsString()
 	@RequiredProperty()
 	id: string;
@@ -370,11 +371,11 @@ export class Tour {
 	@IsString()
 	@RequiredProperty()
 	name: string;
-	
+
 	@IsString()
 	@RequiredProperty()
 	description: string;
-	
+
 	@IsString()
 	@RequiredProperty()
 	longDescription: string;
@@ -401,11 +402,11 @@ export class ReservationFlights {
 }
 
 export class ReservationFlightsReferences {
-	
+
 	@IsString()
 	@RequiredProperty()
 	departingFlight: string;
-	
+
 	@IsString()
 	@RequiredProperty()
 	returningFlight: string;
@@ -437,7 +438,7 @@ export class ReservationReferences {
 }
 
 export class Reservation {
-	
+
 	@IsString()
 	@RequiredProperty()
 	id: string;
@@ -484,8 +485,8 @@ export class ReservationLog {
 }
 
 export class TourRelatedProducts {
-	
-	
+
+
 	@IsArray({
 		items: ObjectValidatorUtils.generateJsonSchema(Flight),
 		minItems: 1,
@@ -521,3 +522,235 @@ export class TourRelatedProducts {
 /* 
 console.log(JSON.stringify(ObjectValidatorUtils.generateJsonSchema(Reservation)));
  */
+
+
+
+interface IPlugsConfiguration {
+	holidayHotels: {
+		endpoint: string;
+		user: string;
+		password: string;
+	};
+	myRentacar: {
+		endpoint: string;
+		token: string;
+	};
+	worldAirlines: {
+		endpoint: string;
+		user: string;
+		password: string;
+	};
+	bestTours: {
+		endpoint: string;
+		user: string;
+		password: string;
+	};
+};
+
+const logCfg: IConfiguration<IPlugsConfiguration>['log'] = {
+	timestamp: true,
+	base: {
+		hostId: 'ovh2301'
+	},
+	enabled: true,
+	level: 'debug',
+	prettyPrint: false,
+	useLevelLabels: false,
+	messageKey: 'msg',
+	changeLevelName: 'level',
+	redact: ['email', 'user.password', 'user.email', '[*].email']
+};
+const webCfg: IWebConfiguration['web'] = {
+	oas: {
+		basePath: '/api',
+		consumes: ['application/json'],
+		host: 'vps5662933',
+		produces: ['application/json'],
+		tags: [{
+			name: 'tours',
+			description: 'Tour methods'
+		}, {
+			name: 'reservations',
+			description: 'Reservations methods'
+		}],
+		servers: [{
+			url: 'vps5662933',
+			description: 'Tours and reservations server',
+			variables: {},
+			addVariable: () => { }
+		}]
+	},
+	server: {
+		port: 3000,
+		host: 'vps5662933',
+		ipv6Only: false,
+		path: '/api',
+		exclusive: false
+	}
+};
+const customCfg: IConfiguration<IPlugsConfiguration>['custom'] = {
+	holidayHotels: {
+		endpoint: 'https://126.160.134.114/api/rooms',
+		user: 'ssXIASgiOM',
+		password: '!bdQ6&cbt3sJ'
+	},
+	myRentacar: {
+		endpoint: 'https://205.195.7.24/ws/cars',
+		token: '66dadeb2-ffba-47ca-8b5f-9cc0dc69b76e'
+	},
+	worldAirlines: {
+		endpoint: 'https://209.54.149.93/c/api',
+		user: 'RKIdUyeeaC',
+		password: 'Cf%B2xp#5DVi'
+	},
+	bestTours: {
+		endpoint: 'https://202.100.28.13/tours',
+		user: 'hfqaVCUNTa',
+		password: 'E#p%KQo*cDs%'
+	}
+};
+
+
+
+export class DailyStatsSelectedReport {
+
+	@IsBoolean()
+	@RequiredProperty()
+	sendSearches: boolean;
+
+
+	@IsBoolean()
+	@RequiredProperty()
+	sendPurchaes: boolean;
+
+
+	@IsBoolean()
+	@RequiredProperty()
+	sendCancelations: boolean;
+
+
+	@IsBoolean()
+	@RequiredProperty()
+	sendViews: boolean;
+
+
+	@IsBoolean()
+	@RequiredProperty()
+	sendErrors: boolean;
+
+}
+
+export class SelectedUsersForMail {
+	@IsArray({
+		items: {
+			title: 'users',
+			type: 'array',
+			items: {
+				type: 'number'
+			}
+		},
+		uniqueItems: true
+	})
+	@RequiredProperty()
+	users: number[]
+}
+
+
+export class FindToursParams {
+	@IsString()
+	@RequiredProperty()
+	city: string;
+	@IsNumber()
+	@RequiredProperty()
+	date: number;
+}
+
+export class FindFlightsParams {
+	@IsString()
+	@RequiredProperty()
+	departure: string;
+	@IsString()
+	@RequiredProperty()
+	arrival: string;
+	@IsNumber()
+	@RequiredProperty()
+	date: number
+}
+
+export class FindHotelRoomsParams {
+	@IsString()
+	@RequiredProperty()
+	city: string;
+	@IsNumber()
+	@RequiredProperty()
+	date: number;
+	@IsNumber()
+	@RequiredProperty()
+	numberOfNights: number;
+}
+
+export class FindVehiclesParams {
+	@IsString()
+	@RequiredProperty()
+	city: string;
+	@IsNumber()
+	@RequiredProperty()
+	date: number;
+	@IsNumber()
+	@RequiredProperty()
+	numberOfDays: number;
+}
+
+export class TourPurchase {
+	@IsString()
+	@RequiredProperty()
+	tourId: string;
+	@IsNumber()
+	@RequiredProperty()
+	userSharedId: number;
+}
+export class FlightPurchase {
+	@IsString()
+	@RequiredProperty()
+	flightId: string;
+	@IsNumber()
+	@RequiredProperty()
+	userSharedId: number;
+}
+export class HotelRoomPurchase {
+	@IsString()
+	@RequiredProperty()
+	hotelRoomId: string;
+	@IsNumber()
+	@RequiredProperty()
+	userSharedId: number;
+}
+export class VehiclePurchase {
+	@IsString()
+	@RequiredProperty()
+	tourId: string;
+	@IsNumber()
+	@RequiredProperty()
+	userSharedId: number;
+}
+
+export class TourCancelation {
+	@IsString()
+	@RequiredProperty()
+	tourId: string;
+}
+export class FlightCancelation {
+	@IsString()
+	@RequiredProperty()
+	flightId: string;
+}
+export class HotelRoomCancelation {
+	@IsString()
+	@RequiredProperty()
+	hotelRoomId: string;
+}
+export class VehicleCancelation {
+	@IsString()
+	@RequiredProperty()
+	tourId: string;
+}
