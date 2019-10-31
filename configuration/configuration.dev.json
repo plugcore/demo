@@ -1,6 +1,8 @@
 {
 	"data": {
-		"url": "mongodb://plugweb:7PuSmMiR42F78j63@213.32.21.245:27017/plugweb",
-		"databaseName": "plugweb"
+		"defaultConnection": {
+			"url": "mongodb://[USER]:[PASSWORD]@[IP_OR_DOMAIN]:27017/[LOGIN_DATABASE]",
+			"databaseName": "[DATABASE_NAME]"
+		}
 	}
 }
