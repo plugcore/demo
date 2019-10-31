@@ -24,16 +24,16 @@
 	},
 	"homepage": "https://github.com/plugdata/plugdata-demos#readme",
 	"dependencies": {
-		"@plugdata/core": "0.2.0",
-		"@plugdata/data": "0.2.0",
-		"@plugdata/web": "0.2.0"
+		"@plugdata/core": "0.5.0",
+		"@plugdata/data": "0.5.0",
+		"@plugdata/web": "0.5.0"
 	},
 	"devDependencies": {
 		"@types/mongodb": "^3.1.31",
 		"@types/node": "^12.6.8",
 		"@types/pino": "^5.8.8",
 		"pino-pretty": "^3.2.0",
-		"tsc-watch": "^2.2.1",
-		"typescript": "^3.5.3"
+		"tsc-watch": "4.0.0",
+		"typescript": "3.6.4"
 	}
 }

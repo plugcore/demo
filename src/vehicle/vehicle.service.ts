@@ -4,7 +4,6 @@ import {
 	StringUtils, EventDispatcher
 } from '@plugdata/core';
 import { Collection, MongoDbConnection } from '@plugdata/data';
-import { CustomConfiguration } from '../configuration/custom.configuration';
 import { VehicleModel } from './vehicle.api';
 import { INewVehicle, IUpdateVehicle, Vehicle } from './vehicle.model';
 import { VehicleEvents } from './vehivle.events';
@@ -20,7 +19,7 @@ export class VehicleService implements IDiOnInit {
 
 	constructor(
 		private log: Logger,
-		private config: ProjectConfiguration<CustomConfiguration>,
+		private config: ProjectConfiguration,
 		private dbConnection: MongoDbConnection,
 		private objectValidatorFactory: ObjectValidatorFactory,
 		private eventDispatcher: EventDispatcher
@@ -42,17 +41,18 @@ export class VehicleService implements IDiOnInit {
 	public async onInit() {
 		// This gets executed before marking the service as ready
 		// to import by other services
-		this.collection = await this.dbConnection.getCollection(Vehicle, {
+		// this.collection = await this.dbConnection.getCollection(Vehicle, {
 			// Here we create a descending index for id so we can
 			// create fast new ids.
 			// Here we can add as many custom indexes for one or multiple
 			// fields at the same time. 
-			ensureIndexes: [{ key: { id: -1 } }]
-		});
+			// ensureIndexes: [{ key: { id: -1 } }]
+		// });
+		// IMPORTANT: Execute this only if the collection has already been created
 		// Log example
 		// Custom configuration example with env variables and json import
 		// All properties can be found in configuration\configuration.json
-		this.log.debug('Property in project configuration:', this.config.custom);
+		this.log.debug('Property in project configuration:', this.config);
 	}
 
 	public async findAll() {
