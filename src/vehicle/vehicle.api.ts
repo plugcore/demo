@@ -754,3 +754,14 @@ export class VehicleCancelation {
 	@RequiredProperty()
 	tourId: string;
 }
+
+
+console.log({
+	FindFutureToursInCityUrlParameters: JSON.stringify(ObjectValidatorUtils.generateJsonSchema(FindFutureToursInCityUrlParameters)),
+	Tour: JSON.stringify(ObjectValidatorUtils.generateJsonSchema(Tour)),
+	FindRelatedProductsUrlParameters: JSON.stringify(ObjectValidatorUtils.generateJsonSchema(FindRelatedProductsUrlParameters)),
+	TourRelatedProducts: JSON.stringify(ObjectValidatorUtils.generateJsonSchema(TourRelatedProducts)),
+	ReservationReferences: JSON.stringify(ObjectValidatorUtils.generateJsonSchema(ReservationReferences)),
+	FindUserReservationsUrlParameters: JSON.stringify(ObjectValidatorUtils.generateJsonSchema(FindUserReservationsUrlParameters)),
+	Reservation: JSON.stringify(ObjectValidatorUtils.generateJsonSchema(Reservation))
+});
