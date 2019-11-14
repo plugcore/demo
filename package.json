@@ -7,9 +7,9 @@
 		"start": "npx plug-start",
 		"test": "npx tsc --incremental true && npx plug-test test dist/test | npx pino-pretty -t -i pid,hostname,name",
 		"test:info": "npx tsc --incremental true && npx plug-test info dist/test",
-		"test:dev": "npx tsc-watch --noClear --onSuccess \"npm run test:clean\"",
+		"test:dev": "node node_modules/tsc-watch/lib/tsc-watch.js --noClear --onSuccess \"npm run test:clean\"",
 		"test:clean": "npx plug-test test dist/test | npx pino-pretty -t -i pid,hostname,name",
-		"dev": "npx tsc-watch --noClear --onSuccess \"npm run start:dev\"",
+		"dev": "node node_modules/tsc-watch/lib/tsc-watch.js --noClear --onSuccess \"npx plug-start | npx pino-pretty -t -i pid,hostname,name\"",
 		"start:dev": "npm run start | npx pino-pretty -t -i pid,hostname,name"
 	},
 	"repository": {
