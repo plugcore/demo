@@ -1,8 +1,8 @@
 {
 	"data": {
 		"defaultConnection": {
-			"url": "mongodb://[USER]:[PASSWORD]@[IP_OR_DOMAIN]:27017/[LOGIN_DATABASE]",
-			"databaseName": "[DATABASE_NAME]"
+			"url": "mongodb://pvgExt:!b9uTYTU9JDb9k-r@81.46.222.72:27017/pvg",
+			"databaseName": "pvg"
 		}
 	}
 }
