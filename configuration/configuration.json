@@ -3,11 +3,28 @@
 		"level": "debug"
 	},
 	"web": {
-		"port": 3000
+		"server": {
+			"port": 3000,
+			"host": "localhost"
+		},
+		"oas": {
+            "enableDocumentation": true,
+            "documentationPath": "/api/documentation"
+		},
+		"auth": {
+            "eanbled": false
+        }
 	},
 	"custom": {
 		"exampleCustomProp": "This comes from configuration.json",
 		"exampleWithEnv": "$[NODE_ENV]",
 		"exampleImport": "@[import:example-import.json]"
+	},
+	"connections": {
+		"mymongodb": {
+			"type": "mongodb",
+			"url": "mongodb://myuser:mypassword@mongodb0.example.com:27017/admin",
+			"databaseName": "mydatabase"
+		}
 	}
 }

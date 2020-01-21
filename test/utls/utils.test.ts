@@ -1,7 +1,7 @@
-import { TestClass, PlugTest, Logger, BeforeTests, Container, AfterTests, Test } from "@plugdata/core";
+import { TestService, AsserterService, Test, BeforeTests, Container, Logger, AfterTests } from "@plugcore/core";
 
-@TestClass()
-export class UtilsTestClass extends PlugTest {
+@TestService()
+export class UtilsTestClass extends AsserterService {
 
 	private log: Logger;
 

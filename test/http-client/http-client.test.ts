@@ -1,4 +1,4 @@
-import { TestClass, PlugTest, Test, HttpClient, HttpsClient } from "@plugdata/core";
+import { TestService, AsserterService, Test, HttpDatasource } from "@plugcore/core";
 
 // This test helps with 2 thigs
 // 1: Since this test is not configured with "testThisOnly" like "utils.test.ts" it will not be executed by defualt.
@@ -13,8 +13,8 @@ interface IMockPost {
 	body: string;
 }
 
-@TestClass()
-export class HttpClientTest extends PlugTest {
+@TestService({ connection: 'jsonplaceholder' })
+export class HttpClientTest extends AsserterService {
 
 	private readonly getEx = '/posts';
 	private readonly postEx = '/posts';
@@ -35,47 +35,21 @@ export class HttpClientTest extends PlugTest {
 		body: 'body'
 	};
 
-	@Test()
-	public async httpTests() {
-
-		const httpClient = new HttpClient('jsonplaceholder.typicode.com');
-
-		const callsResp = await Promise.all([
-			httpClient.get<IMockPost[]>(this.getEx),
-			httpClient.post<IMockPost>(this.postEx, this.mokPost),
-			httpClient.put<IMockPost>(this.putEx, this.mokPost),
-			httpClient.patch<IMockPost>(this.pathcEx, this.mokPost),
-			httpClient.delete<IMockPost>(this.deleteEx, this.mokPost)
-		]);
-
-		const resGet = callsResp[0];
-		this.assert.ok(Array.isArray(resGet));
-
-		const resPost = callsResp[1];
-		this.assert.deepEqual(resPost, this.mokPost);
-
-		const resPut = callsResp[2];
-		this.assert.deepEqual(resPut, this.mokPost2);
-
-		const resPatch = callsResp[3];
-		this.assert.deepEqual(resPatch, this.mokPost);
-
-		const resDelete = callsResp[4];
-		this.assert.ok(resDelete);
-
+	constructor(
+		private httpsClient: HttpDatasource
+	) {
+		super();
 	}
 
 	@Test()
 	public async httpsTests() {
 
-		const httpsClient = new HttpsClient('jsonplaceholder.typicode.com');
-
 		const callsResp = await Promise.all([
-			httpsClient.get<IMockPost[]>(this.getEx),
-			httpsClient.post<IMockPost>(this.postEx, this.mokPost),
-			httpsClient.put<IMockPost>(this.putEx, this.mokPost),
-			httpsClient.patch<IMockPost>(this.pathcEx, this.mokPost),
-			httpsClient.delete<IMockPost>(this.deleteEx, this.mokPost)
+			this.httpsClient.get<IMockPost[]>(this.getEx),
+			this.httpsClient.post<IMockPost>(this.postEx, this.mokPost),
+			this.httpsClient.put<IMockPost>(this.putEx, this.mokPost),
+			this.httpsClient.patch<IMockPost>(this.pathcEx, this.mokPost),
+			this.httpsClient.delete<IMockPost>(this.deleteEx, this.mokPost)
 		]);
 
 		const resGet = callsResp[0];

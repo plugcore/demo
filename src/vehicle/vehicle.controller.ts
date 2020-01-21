@@ -1,5 +1,5 @@
-import { Logger } from '@plugdata/core';
-import { Controller, defaultResponse, DefaultResponseModel, Delete, Get, Patch, Post, Request, Response } from '@plugdata/web';
+import { Logger } from '@plugcore/core';
+import { Controller, DefaultResponseModel, Delete, Get, Patch, Post, Request, Response } from '@plugcore/web';
 import { NewVehicleModel, UpdateVehicleModel, VehicleId, VehicleModel } from './vehicle.api';
 import { VehicleService } from './vehicle.service';
 
@@ -54,7 +54,7 @@ export class VehicleController {
 	@Post({
 		routeSchemas: {
 			request: NewVehicleModel,
-			response: DefaultResponseModel
+			response: VehicleId
 		}
 	})
 	public async create(req: Request<NewVehicleModel>) {
@@ -62,8 +62,8 @@ export class VehicleController {
 		// the object is validated thanks to the schema
 		// passed in `routeValidation.request`
 		// but instead we could use `ObjectValidatorFactory`
-		await this.vehicleService.create(req.body);
-		return defaultResponse;
+		const result = await this.vehicleService.create(req.body);
+		return { id: result.id };
 	}
 
 	@Patch('/:id', {
@@ -75,7 +75,7 @@ export class VehicleController {
 	})
 	public async update(req: Request<UpdateVehicleModel, VehicleId>) {
 		await this.vehicleService.update(req.params.id, req.body);
-		return defaultResponse;
+		return  { success: true };
 	}
 
 	@Delete('/:id', {
@@ -86,7 +86,7 @@ export class VehicleController {
 	})
 	public async remove(req: Request<undefined, VehicleId>) {
 		await this.vehicleService.remove(req.params.id);
-		return defaultResponse;
+		return  { success: true };
 	}
 
 	//

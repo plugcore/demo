@@ -1,27 +1,28 @@
 import {
-	IDiOnInit, Logger, ObjectValidatorFactory, ProjectConfiguration,
+	OnInit, Logger, ObjectValidator,
 	Service, TypeChecker, ObjectUtils, ObjectValidatorUtils,
-	StringUtils, EventDispatcher
-} from '@plugdata/core';
-import { Collection, MongoDbConnection } from '@plugdata/data';
+	StringUtils, EventDispatcher, InjectConfiguration
+} from '@plugcore/core';
+import { Collection, MongoDbDatasource } from '@plugcore/ds-mongodb';
 import { VehicleModel } from './vehicle.api';
 import { INewVehicle, IUpdateVehicle, Vehicle } from './vehicle.model';
 import { VehicleEvents } from './vehivle.events';
+import { CustomConfiguration } from '../configuration/custom.configuration';
 
 /**
  * This class is an example of database service with all CRUD operations
  */
-@Service()
-export class VehicleService implements IDiOnInit {
+@Service({ connection: 'mymongodb' })
+export class VehicleService implements OnInit {
 
 	private collection: Collection<Vehicle>;
 	private isValidVehicle: (data: VehicleModel) => any;
 
 	constructor(
 		private log: Logger,
-		private config: ProjectConfiguration,
-		private dbConnection: MongoDbConnection,
-		private objectValidatorFactory: ObjectValidatorFactory,
+		@InjectConfiguration() private config: CustomConfiguration,
+		private dbConnection: MongoDbDatasource,
+		private objectValidatorFactory: ObjectValidator,
 		private eventDispatcher: EventDispatcher
 	) {
 		// Example of object validation compilation
@@ -52,29 +53,29 @@ export class VehicleService implements IDiOnInit {
 		// Log example
 		// Custom configuration example with env variables and json import
 		// All properties can be found in configuration\configuration.json
-		this.log.debug('Property in project configuration:', this.config);
+		this.log.debug('Property in project configuration:', this.config.exampleCustomProp);
 	}
 
 	public async findAll() {
 		// { projection } Removes the '_id' field that have all objects in mongodb
-		return this.collection.find({}, { projection: { _id: 0 } }).toArray();
+		return <any>this.collection.find({}, { projection: { _id: 0 } });
 	}
 
 	public async findOne(id: Vehicle['id']) {
 		return this.collection.findOne({ id }, { projection: { _id: 0 } });
 	}
 
-	public async create(vehicle: INewVehicle) {
-		const newVehicle: Vehicle = ObjectUtils.deepAssign(vehicle, { id: await this.createNewId() });
+	public async create(vehicle: INewVehicle): Promise<Vehicle> {
+		const newVehicle: Vehicle = ObjectUtils.deepAssign(vehicle, { id: StringUtils.createRandomId() });
 		// Example of object validaton. We can use directly the "this.isValidVehicle" function
 		// or we can use the util from objectValidatorFactory so it's easy to do
 		const vehicleValidation = this.objectValidatorFactory.validate(this.isValidVehicle, newVehicle);
 		if (vehicleValidation.valid) {
-			const result = this.collection.insertOne(newVehicle);
+			await this.collection.insertOne(newVehicle);
 			// Example of custom events. This will be recived in
 			// VehicleEventsService.onVehicleCreated
-			this.eventDispatcher.emmit(VehicleEvents.vehicleCreated, newVehicle);
-			return result;
+			this.eventDispatcher.emit(VehicleEvents.vehicleCreated, newVehicle);
+			return newVehicle;
 		} else {
 			throw new Error(StringUtils.objToStr(vehicleValidation.errors));
 		}
@@ -86,24 +87,9 @@ export class VehicleService implements IDiOnInit {
 	}
 
 	public async remove(vehicleOrId: Vehicle['id'] | Vehicle) {
-		const id = TypeChecker.isNumber(vehicleOrId) ? vehicleOrId : vehicleOrId.id;
+		const id = TypeChecker.isString(vehicleOrId) ? vehicleOrId : vehicleOrId.id;
 		this.log.debug(`Removing vehicle ${id}`);
 		return this.collection.deleteOne({ id });
-	}
-
-	//
-	// Private mtehods
-	//
-
-	private async createNewId() {
-		// Since we have created an index for the id field and
-		// we are limiting it by 1 we have maximum performance
-		const currMaxId = await this.collection.find().sort({ id: -1 }).limit(1).toArray();
-		if (currMaxId && currMaxId.length > 0) {
-			return currMaxId[0].id + 1;
-		} else {
-			return 0;
-		}
 	}
 
 }

@@ -1,12 +1,12 @@
 {
-	"name": "plugdata-demos",
+	"name": "plugcore-demo",
 	"version": "0.2.0",
-	"description": "Demos for all projects in Plugdata.io",
+	"description": "Demo for the plug framework of plugcore.com",
 	"main": "index.js",
 	"scripts": {
 		"start": "npx plug-start",
-		"test": "npx tsc --incremental true && npx plug-test test dist/test | npx pino-pretty -t -i pid,hostname,name",
-		"test:info": "npx tsc --incremental true && npx plug-test info dist/test",
+		"test": "npx tsc --incremental true && npx plug-test test dist/test configuration | npx pino-pretty -t -i pid,hostname,name",
+		"test:info": "npx tsc --incremental true && npx plug-test info dist/test  configuration",
 		"test:dev": "node node_modules/tsc-watch/lib/tsc-watch.js --noClear --onSuccess \"npm run test:clean\"",
 		"test:clean": "npx plug-test test dist/test | npx pino-pretty -t -i pid,hostname,name",
 		"dev": "node node_modules/tsc-watch/lib/tsc-watch.js --noClear --onSuccess \"npm run start:dev\"",
@@ -14,24 +14,26 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/plugdata/plugdata-demos.git"
+		"url": "git+https://github.com/plugcore/plug-demo.git"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/plugdata/plugdata-demos/issues"
+		"url": "https://github.com/plugcore/plug-demo/issues"
 	},
-	"homepage": "https://github.com/plugdata/plugdata-demos#readme",
+	"homepage": "https://github.com/plugcore/plug-demo#readme",
 	"dependencies": {
-		"@plugdata/core": "0.5.0",
-		"@plugdata/data": "0.5.0",
-		"@plugdata/web": "0.5.0"
+		"@plugcore/core": "1.0.0-rc2",
+		"@plugcore/ds-mongodb": "1.0.0-rc2",
+		"@plugcore/web": "1.0.0-rc2",
+		"fastify": "^2.11.0"
 	},
 	"devDependencies": {
 		"@types/mongodb": "^3.1.31",
 		"@types/node": "^12.6.8",
 		"@types/pino": "^5.8.8",
+		"nedb": "^1.8.0",
 		"pino-pretty": "^3.2.0",
 		"tsc-watch": "4.0.0",
 		"typescript": "3.6.4"

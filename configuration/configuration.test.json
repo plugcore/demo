@@ -4,6 +4,10 @@
 			"type": "mongodb",
 			"url": "nedb",
 			"databaseName": "mydatabase"
+		},
+		"jsonplaceholder": {
+			"type": "http",
+			"url": "https://jsonplaceholder.typicode.com"
 		}
 	}
 }

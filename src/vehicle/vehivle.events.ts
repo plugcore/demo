@@ -1,4 +1,4 @@
-import { Service, Logger, OnEvent } from "@plugdata/core";
+import { Service, Logger, OnEvent } from "@plugcore/core";
 import { Vehicle } from "./vehicle.model";
 
 export class VehicleEvents {

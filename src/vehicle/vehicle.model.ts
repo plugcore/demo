@@ -1,6 +1,6 @@
 
 export class Vehicle {
-	public id: number;
+	public id: string;
 	public model: string;
 	public year: number;
 }

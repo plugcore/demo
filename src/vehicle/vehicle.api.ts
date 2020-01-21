@@ -1,4 +1,4 @@
-import { IsNumber, IsString, RequiredProperty } from "@plugdata/core";
+import { IsNumber, IsString, Required } from "@plugcore/core";
 import { INewVehicle, IUpdateVehicle, Vehicle } from "./vehicle.model";
 
 // In this file we are going to define all the models that the vehicle
@@ -14,23 +14,23 @@ import { INewVehicle, IUpdateVehicle, Vehicle } from "./vehicle.model";
 // Further more, these models are going to help us type all the methods.
 
 export class VehicleModel implements Vehicle {
-	@IsNumber()
-	@RequiredProperty()
-	public id: number;
 	@IsString()
-	@RequiredProperty()
+	@Required()
+	public id: string;
+	@IsString()
+	@Required()
 	public model: string;
 	@IsNumber()
-	@RequiredProperty()
+	@Required()
 	public year: number;
 }
 
 export class NewVehicleModel implements INewVehicle {
 	@IsString()
-	@RequiredProperty()
+	@Required()
 	public model: string;
 	@IsNumber()
-	@RequiredProperty()
+	@Required()
 	public year: number;
 }
 
@@ -43,7 +43,7 @@ export class UpdateVehicleModel implements Omit<IUpdateVehicle, 'id'> {
 }
 
 export class VehicleId {
-	@IsNumber()
-	@RequiredProperty()
-	public id: number;
+	@IsString()
+	@Required()
+	public id: string;
 }
