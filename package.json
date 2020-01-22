@@ -4,11 +4,10 @@
 	"description": "Demo for the plug framework of plugcore.com",
 	"main": "index.js",
 	"scripts": {
-		"start": "npx plug-start",
-		"test": "npx tsc --incremental true && npx plug-test test dist/test configuration | npx pino-pretty -t -i pid,hostname,name",
-		"test:info": "npx tsc --incremental true && npx plug-test info dist/test  configuration",
+		"start": "npx plug start",
+		"test": "npx tsc --incremental true && npm run test:clean",
 		"test:dev": "node node_modules/tsc-watch/lib/tsc-watch.js --noClear --onSuccess \"npm run test:clean\"",
-		"test:clean": "npx plug-test test dist/test | npx pino-pretty -t -i pid,hostname,name",
+		"test:clean": "npx plug test | npx pino-pretty -t -i pid,hostname,name",
 		"dev": "node node_modules/tsc-watch/lib/tsc-watch.js --noClear --onSuccess \"npm run start:dev\"",
 		"start:dev": "npm run start | npx pino-pretty -t -i pid,hostname,name"
 	},
@@ -24,9 +23,9 @@
 	},
 	"homepage": "https://github.com/plugcore/plug-demo#readme",
 	"dependencies": {
-		"@plugcore/core": "1.0.0-rc2",
-		"@plugcore/ds-mongodb": "1.0.0-rc2",
-		"@plugcore/web": "1.0.0-rc2",
+		"@plugcore/core": "1.0.0",
+		"@plugcore/ds-mongodb": "1.0.0",
+		"@plugcore/web": "1.0.0",
 		"fastify": "^2.11.0"
 	},
 	"devDependencies": {

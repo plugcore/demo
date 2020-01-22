@@ -1,7 +1,8 @@
-import { Logger } from '@plugcore/core';
+import { Logger, InjectConfiguration } from '@plugcore/core';
 import { Controller, DefaultResponseModel, Delete, Get, Patch, Post, Request, Response } from '@plugcore/web';
 import { NewVehicleModel, UpdateVehicleModel, VehicleId, VehicleModel } from './vehicle.api';
 import { VehicleService } from './vehicle.service';
+import { CustomConfiguration } from '../configuration/custom.configuration';
 
 /**
  * This class is an example of a controller with all REST operations
@@ -12,8 +13,14 @@ export class VehicleController {
 
 	constructor(
 		private vehicleService: VehicleService,
-		private log: Logger
-	) { }
+		private log: Logger,
+		@InjectConfiguration() private config: CustomConfiguration
+	) {
+		// Log example
+		// Custom configuration example with env variables and json import
+		// All properties can be found in configuration\configuration.json
+		this.log.debug('>>> Property in project configuration:', '>>> ' + this.config.custom.exampleCustomProp);
+	;}
 
 	//
 	// Public API

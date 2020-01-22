@@ -20,7 +20,6 @@ export class VehicleService implements OnInit {
 
 	constructor(
 		private log: Logger,
-		@InjectConfiguration() private config: CustomConfiguration,
 		private dbConnection: MongoDbDatasource,
 		private objectValidatorFactory: ObjectValidator,
 		private eventDispatcher: EventDispatcher
@@ -49,11 +48,6 @@ export class VehicleService implements OnInit {
 			// fields at the same time. 
 			// ensureIndexes: [{ key: { id: -1 } }]
 		});
-		// IMPORTANT: Execute this only if the collection has already been created
-		// Log example
-		// Custom configuration example with env variables and json import
-		// All properties can be found in configuration\configuration.json
-		this.log.debug('Property in project configuration:', this.config.exampleCustomProp);
 	}
 
 	public async findAll() {

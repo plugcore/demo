@@ -25,7 +25,7 @@ export class UtilsTestClass extends AsserterService {
 	// methods will be executed, but only the methods with this
 	// option will be executed. If a class has non of the it will
 	// be skipped. This also can be done at class level
-	@Test({ testThisOnly: true })
+	@Test()
 	public basicTest() {
 
 		// Inside tests we can call any of this.asset methods we 
