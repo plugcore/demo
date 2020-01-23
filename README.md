@@ -1,6 +1,7 @@
+
 # Demo Plug framework
 
-Este repositorio sirve como demostración del funcionamiento de [Plug data framework](https://github.com/plugdata/plugdata-framework).
+Este repositorio sirve como demostración del funcionamiento de [Plugcore framework](https://github.com/plugcore/plug).
 En el podemos ver ejemplos de todas las secciones como por ejemplo configuración, controladores, servicios, etc.
 
 
@@ -8,34 +9,20 @@ En el podemos ver ejemplos de todas las secciones como por ejemplo configuració
 
 - Nodejs 10.16 o superior con npm (se instala por defecto cuando instalas Nodejs). [Guía de instalación](https://nodejs.org)
 - Git. [Guía de instalación](https://git-scm.com/downloads)
-- MongoDB. [Guía de instalación](https://docs.mongodb.com/manual/installation/)
 
 ## Instalación
 
 - Para poder probar este proyecto en local lo más sencillo es clonarse el proyecto:
 
 ```
-git clone https://github.com/plugdata/plugdata-demo.git
+git clone https://github.com/plugcore/plug-demo.git
 ```
 
 - Ir a la carpeta e instalar
 
 ```
-cd plugdata-demo
+cd plug-demo
 npm i
-```
-
-- Configurar la conexión con MongoDB
-
-	1. Abrir el archivo `configuration\configuration.dev.json`
-	2. Modificar los valores de `data.url` y `data.databaseName` con los valores de la conexión a nuestra instalación de MongoDB, así como se indica en esta plantilla:
-```json
-{
-	"data": {
-		"url": "mongodb://[USER]:[PASSWORD]@[IP_OR_DOMAIN]:27017/[LOGIN_DATABASE]",
-		"databaseName": "[DATABASE_NAME]"
-	}
-}
 ```
 
 Cabe destacar que se está instalando todo localmente en este proyecto y no se va a hacer ninguna instalación de módulos globales NPM ya que se hace uso extenso en los npm scripts de [npx](https://www.npmjs.com/package/npx) para ejecutar todos los métodos desde el `node_modules` del proyecto. De esta manera no se tiene que preocupar de versiones globales de módulos como `tsc`.
@@ -43,7 +30,7 @@ Cabe destacar que se está instalando todo localmente en este proyecto y no se v
 ## Scripts
 
 Ahora que ya lo tenemos instalado ya lo podemos poner en marcha, hacer tests, etc.
-Para ejecutar estos comandos nos tenemos que posicionar en la carpeta del proyecto (plugdata-demo) por linea de comandos y escribir:
+Para ejecutar estos comandos nos tenemos que posicionar en la carpeta del proyecto (plug-demo) por linea de comandos y escribir:
 
 - `npm start`: Inicia el servidor como si fuera en producción
 - `npm run dev`: Inicia el proyecto en modo desarrollo, es decir que cada vez que guardemos se reinicia el servidor
@@ -78,11 +65,11 @@ Para empezar un buen ejemplo hacer un `POST` a `http://localhost:3000/vehicle` c
 
 Podremos ver todos nuestros vehículos creados haciendo una petición a [http://localhost:3000/vehicle](http://localhost:3000/vehicle).
 
-Para la documentación podemos acceder a [http://localhost:3000/api-documentation.json](http://localhost:3000/api-documentation.json)
+Para la documentación podemos acceder a [http://localhost:3000/api/documentation](http://localhost:3000/api/documentation)
 
 
 ## Conclusión de la demo
 
 Hay ejemplos y comentarios por todas las clases del código, y se ha intentando seguir buenas prácticas a la hora de crear los nombres y la estructura, así que puedes usar este proyecto como plantilla para crear nuevas implementaciones y aprender más sobre plug framework haciendo pruebas.
 
-Muchas gracias por probar, si encuentras cualquier problema por favor deja abre un ticket en: [https://github.com/plugdata/plugdata-/issues](https://github.com/plugdata/plugdata/issues)
+Muchas gracias por probar, si encuentras cualquier problema por favor deja abre un ticket en: [https://github.com/plugcore/plug/issues](https://github.com/plugcore/plug/issues)
