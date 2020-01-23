@@ -72,4 +72,4 @@ Para la documentación podemos acceder a [http://localhost:3000/api/documentatio
 
 Hay ejemplos y comentarios por todas las clases del código, y se ha intentando seguir buenas prácticas a la hora de crear los nombres y la estructura, así que puedes usar este proyecto como plantilla para crear nuevas implementaciones y aprender más sobre plug framework haciendo pruebas.
 
-Muchas gracias por probar, si encuentras cualquier problema por favor deja abre un ticket en: [https://github.com/plugcore/plug/issues](https://github.com/plugcore/plug/issues)
+Muchas gracias por probar, si encuentras cualquier problema por favor deja un ticket en: [https://github.com/plugcore/plug/issues](https://github.com/plugcore/plug/issues)
