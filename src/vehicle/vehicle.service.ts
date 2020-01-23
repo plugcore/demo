@@ -7,7 +7,6 @@ import { Collection, MongoDbDatasource } from '@plugcore/ds-mongodb';
 import { VehicleModel } from './vehicle.api';
 import { INewVehicle, IUpdateVehicle, Vehicle } from './vehicle.model';
 import { VehicleEvents } from './vehivle.events';
-import { CustomConfiguration } from '../configuration/custom.configuration';
 
 /**
  * This class is an example of database service with all CRUD operations
@@ -52,7 +51,7 @@ export class VehicleService implements OnInit {
 
 	public async findAll() {
 		// { projection } Removes the '_id' field that have all objects in mongodb
-		return <any>this.collection.find({}, { projection: { _id: 0 } });
+		return this.collection.find({}, { projection: { _id: 0 } }).toArray();
 	}
 
 	public async findOne(id: Vehicle['id']) {
