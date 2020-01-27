@@ -21,7 +21,7 @@ git clone https://github.com/plugcore/demo.git
 - Ir a la carpeta e instalar
 
 ```
-cd plug-demo
+cd demo
 npm i
 ```
 
